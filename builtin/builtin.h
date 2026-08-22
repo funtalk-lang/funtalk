@@ -1,0 +1,15 @@
+#pragma once
+#include <cmath>
+#include <algorithm>
+#include <fstream>
+#include "../funs/funs.h"
+#include "cast.h"
+#include "collection.h"
+#include "compare.h"
+#include "bitwise.h"
+#include "basic_math.h"
+#include "int_math.h"
+#include "float_math.h"
+#include "complex_math.h"
+#include "matrix_math.h"
+#include "messages.h"
