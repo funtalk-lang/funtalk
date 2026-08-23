@@ -146,7 +146,7 @@ To understand the runtime, we also need to look at the interpreter architecture.
 ### The Interpreter Architecture
 - **Tokenizer:** Creates a flat AST by splitting the code text into tokens and checking for compliance with common language rules.
 - **Compressor:** Reduces token types and replaces names with integer IDs.
-- **Flat AST Walker:** Recursively constructs objects, calls functions, send messages.
+- **Flat AST Walker:** Recursively constructs objects, calls functions, sends messages.
 - **GC:** Contains all values larger than 8 bytes. There are 3 types of GC:
     - **Mutable:** A value is passed by copy and cannot be used for hash tables.
     - **Immutable:** A value is passed by const reference; there cannot be 2 equal values in the pool, so their references are always equal and can be used for hash tables.
@@ -178,25 +178,19 @@ main() = {
 }
 ```
 ### Fatal Error
-Some errors are not caused by a function call or a message send so they cause the program to send the error string to the client and skip the current iteration
+Some errors are not caused by a function call or a message send. If the app has not been assigned a port and encounters a fatal error, it terminates; otherwise, the program sends the error string to the client and skips the current iteration
 ```funtalk
 main() = {
     .print(a) ; Error in 'main': Variable 'a' is not defined
-    .print("Hello") ; Won't execute
+    .print("Hello") ; Unreachable code: Won't execute due to early termination
 }
 ```
-
 ## Command-Line Arguments
 ```bash
 ./funtalk main.fun 1 2
 ```
 ```funtalk
 main(args) = {
-	.print(args) ; (1,2,)
+    .print(args) ; (1,2,)
 }
 ```
-## SOP is inspired by these ideas:
-1. Alpine Linux - Small. Simple. Secure.
-2. Haskell - pure functional.
-3. Smalltalk - the true OOP.
-4. Calimero - il pulcino nero.
